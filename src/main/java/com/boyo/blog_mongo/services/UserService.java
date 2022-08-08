@@ -16,7 +16,7 @@ public interface UserService {
 
     User getUser(String id);
 
-    void reSave(User user);
+    User reSave(User user);
 
     User getUserByUsername(String username);
 

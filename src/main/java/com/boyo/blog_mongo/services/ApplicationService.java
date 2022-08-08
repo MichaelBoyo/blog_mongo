@@ -3,15 +3,13 @@ package com.boyo.blog_mongo.services;
 import com.boyo.blog_mongo.data.models.Article;
 import com.boyo.blog_mongo.data.models.Blog;
 import com.boyo.blog_mongo.data.models.User;
-import com.boyo.blog_mongo.dtos.requests.AddArticleRequest;
-import com.boyo.blog_mongo.dtos.requests.CommentRequest;
-import com.boyo.blog_mongo.dtos.requests.LoginRequest;
-import com.boyo.blog_mongo.dtos.requests.RegisterUserRequest;
+import com.boyo.blog_mongo.dtos.requests.*;
+import com.boyo.blog_mongo.dtos.responses.RegisterUserResponse;
 
 import java.util.List;
 
 
-public interface BlogAppService {
+public interface ApplicationService {
     String addArticle(AddArticleRequest request);
 
     String addComment(CommentRequest commentRequest);
@@ -19,7 +17,7 @@ public interface BlogAppService {
 
     void clearDatabases();
 
-    void registerUser(RegisterUserRequest request);
+    User registerUser(RegisterUserRequest request);
 
     User getUser(String michael);
 
@@ -30,4 +28,8 @@ public interface BlogAppService {
     User getUserByUserName(String username);
 
     Blog getBlog(String userId);
+
+    RegisterUserResponse updateUser(UpdateUserRequest request);
+
+    RegisterUserResponse deleteUser(String id);
 }

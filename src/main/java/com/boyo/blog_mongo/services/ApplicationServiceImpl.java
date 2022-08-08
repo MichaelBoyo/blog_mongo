@@ -4,6 +4,7 @@ import com.boyo.blog_mongo.data.models.Article;
 import com.boyo.blog_mongo.data.models.Blog;
 import com.boyo.blog_mongo.data.models.User;
 import com.boyo.blog_mongo.dtos.requests.*;
+import com.boyo.blog_mongo.dtos.responses.RegisterUserResponse;
 import com.boyo.blog_mongo.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BlogAppServiceImpl implements BlogAppService {
+public class ApplicationServiceImpl implements ApplicationService {
     @Autowired
     private ArticleService articleService;
 
@@ -65,14 +66,14 @@ public class BlogAppServiceImpl implements BlogAppService {
     }
 
     @Override
-    public void registerUser(RegisterUserRequest request) {
+    public User registerUser(RegisterUserRequest request) {
         var user = userService.saveUser(request).getUser();
 
         BlogRequest blogRequest = new BlogRequest();
         blogRequest.setBlogName(request.getBlogName());
         Blog blog = blogService.saveBlog(blogRequest);
         user.setBlog(blog);
-        userService.reSave(user);
+        return userService.reSave(user);
     }
 
     @Override
@@ -98,5 +99,15 @@ public class BlogAppServiceImpl implements BlogAppService {
     @Override
     public Blog getBlog(String userId) {
         return userService.getUser(userId).getBlog();
+    }
+
+    @Override
+    public RegisterUserResponse updateUser(UpdateUserRequest request) {
+        return userService.updateUser(request);
+    }
+
+    @Override
+    public RegisterUserResponse deleteUser(String id) {
+        return userService.deleteUser(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.boyo.blog_mongo.services;
 
 import com.boyo.blog_mongo.dtos.requests.AddArticleRequest;
-import com.boyo.blog_mongo.dtos.requests.ArticleRequest;
 import com.boyo.blog_mongo.dtos.requests.RegisterUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BlogAppServiceImplTest {
 
     @Autowired
-    BlogAppService blogAppService;
+    ApplicationService blogAppService;
 
 
 
