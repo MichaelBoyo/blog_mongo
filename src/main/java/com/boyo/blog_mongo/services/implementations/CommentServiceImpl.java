@@ -25,6 +25,7 @@ public class CommentServiceImpl implements CommentService {
     public String updateComment(String id, CommentRequest commentRequest) {
         var comment = getComment(id);
         Mapper.mapCommentRequestToComment(commentRequest, comment);
+        commentRepository.save(comment);
         return "comment updated successfully";
     }
 
