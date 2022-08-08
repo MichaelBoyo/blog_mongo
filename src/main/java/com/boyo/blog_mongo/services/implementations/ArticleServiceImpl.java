@@ -9,6 +9,8 @@ import com.boyo.blog_mongo.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
@@ -47,5 +49,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void reSave(Article article) {
         articleRepository.save(article);
+    }
+
+    @Override
+    public void clearDatabase() {
+        articleRepository.deleteAll();
+    }
+
+    @Override
+    public List<Article> getAllArticles() {
+        return articleRepository.findAll();
     }
 }

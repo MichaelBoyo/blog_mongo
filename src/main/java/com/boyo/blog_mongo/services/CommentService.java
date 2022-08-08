@@ -11,4 +11,6 @@ public interface CommentService {
     String deleteComment(String id);
 
     Comment getComment(String id);
+
+    void clearDatabase();
 }

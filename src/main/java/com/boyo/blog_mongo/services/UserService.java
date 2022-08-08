@@ -5,9 +5,10 @@ import com.boyo.blog_mongo.dtos.requests.LoginRequest;
 import com.boyo.blog_mongo.dtos.requests.RegisterUserRequest;
 import com.boyo.blog_mongo.dtos.requests.UpdateUserRequest;
 import com.boyo.blog_mongo.dtos.responses.RegisterUserResponse;
+import com.boyo.blog_mongo.dtos.responses.UserAndResponse;
 
 public interface UserService {
-    RegisterUserResponse saveUser(RegisterUserRequest registerUserRequest);
+    UserAndResponse saveUser(RegisterUserRequest registerUserRequest);
 
     RegisterUserResponse updateUser(UpdateUserRequest updateUserRequest);
 
@@ -20,4 +21,8 @@ public interface UserService {
     User getUserByUsername(String username);
 
     User login(LoginRequest loginRequest);
+
+    void clearDatabase();
+
+    long getNumberOfUsers();
 }

@@ -17,4 +17,7 @@ public interface ArticleService {
 
     void reSave(Article article);
 
+    void clearDatabase();
+
+    List<Article> getAllArticles();
 }

@@ -6,6 +6,7 @@ import com.boyo.blog_mongo.dtos.requests.LoginRequest;
 import com.boyo.blog_mongo.dtos.requests.RegisterUserRequest;
 import com.boyo.blog_mongo.dtos.requests.UpdateUserRequest;
 import com.boyo.blog_mongo.dtos.responses.RegisterUserResponse;
+import com.boyo.blog_mongo.dtos.responses.UserAndResponse;
 import com.boyo.blog_mongo.exceptions.InvalidCredentialException;
 import com.boyo.blog_mongo.exceptions.UserAlreadyExistException;
 import com.boyo.blog_mongo.exceptions.UserNotFoundException;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public RegisterUserResponse saveUser(RegisterUserRequest registerUserRequest) {
+    public UserAndResponse saveUser(RegisterUserRequest registerUserRequest) {
         if (userRepository.findAll().stream().anyMatch(
                 (user -> user.getUsername().equals(registerUserRequest.getUsername())))) {
             throw new UserAlreadyExistException("email " + registerUserRequest.getUsername() + " already exist");
@@ -31,8 +32,9 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setPassword(registerUserRequest.getPassword());
         Mapper.mapRequestToUSer(registerUserRequest, user);
-        var savedUSer = userRepository.save(user);
-        return new RegisterUserResponse(savedUSer.getUsername() + " registered successfully");
+        var savedUser = userRepository.save(user);
+        var resp = new RegisterUserResponse(savedUser.getUsername() + " registered successfully");
+        return new UserAndResponse(savedUser,resp);
     }
 
     @Override
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterUserResponse deleteUser(String  id) {
+        userRepository.deleteById(id);
         return new RegisterUserResponse("deleted successfully");
     }
 
@@ -78,5 +81,15 @@ public class UserServiceImpl implements UserService {
             throw new InvalidCredentialException("wrong password");
         }
         return user;
+    }
+
+    @Override
+    public void clearDatabase() {
+        userRepository.deleteAll();
+    }
+
+    @Override
+    public long getNumberOfUsers() {
+        return userRepository.count();
     }
 }

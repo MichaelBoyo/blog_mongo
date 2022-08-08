@@ -48,8 +48,4 @@ public class Mapper {
         articleRequest.setTitle(request.getTitle());
         articleRequest.setBody(request.getBody());
     }
-
-    public static void mapAddArticleReqToBlogRequest(AddArticleRequest request, BlogRequest blogRequest) {
-        blogRequest.setBlogName(request.getBlogName());
-    }
 }

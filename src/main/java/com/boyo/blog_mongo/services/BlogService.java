@@ -16,4 +16,6 @@ public interface BlogService {
     void reSave(Blog blog);
 
     Blog findBlogByName(String blogName);
+
+    void clearDatabase();
 }

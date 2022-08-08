@@ -40,4 +40,9 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findById(id).orElseThrow(
                 () -> new CommentNotFoundException("comment with id-> " + id + " not found"));
     }
+
+    @Override
+    public void clearDatabase() {
+        commentRepository.deleteAll();
+    }
 }

@@ -25,6 +25,7 @@ public class BlogServiceImpl implements BlogService {
     public String updateBlog(String id, BlogRequest blogRequest) {
         var blog = getBlog(id);
         Mapper.mapBlogRequestToBlog(blogRequest, blog);
+        blogRepository.save(blog);
         return "updated successfully";
     }
 
@@ -49,5 +50,10 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog findBlogByName(String blogName) {
         return blogRepository.findByBlogName(blogName);
+    }
+
+    @Override
+    public void clearDatabase() {
+        blogRepository.deleteAll();
     }
 }
